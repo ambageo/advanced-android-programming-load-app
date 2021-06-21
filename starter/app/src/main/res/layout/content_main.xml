@@ -21,7 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/download_image"
-        android:layout_margin="@dimen/radio_margin">
+        android:layout_margin="@dimen/radio_margin"
+        android:checkedButton="@id/radio_load_app">
         <RadioButton
             android:id="@+id/radio_glide"
             style="@style/RadioButton"
@@ -29,11 +30,11 @@
         <RadioButton
             android:id="@+id/radio_load_app"
             style="@style/RadioButton"
-            android:text="@string/radio_load_app_text"/>
+            android:text="@string/radio_load_app_text" />
         <RadioButton
             android:id="@+id/radio_retrofit"
             style="@style/RadioButton"
-            android:text="@string/radio_retrofit_text"/>
+            android:text="@string/radio_retrofit_text" />
     </RadioGroup>
 
     <com.udacity.LoadingButton
