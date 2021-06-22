@@ -1,5 +1,7 @@
 package com.udacity
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Canvas
@@ -7,6 +9,7 @@ import android.graphics.Color
 import android.graphics.Paint
 import android.graphics.Typeface
 import android.util.AttributeSet
+import android.util.Log
 import android.view.View
 import kotlin.properties.Delegates
 
@@ -15,34 +18,65 @@ class LoadingButton @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr) {
     private var widthSize = 0
     private var heightSize = 0
+    private var buttonText = resources.getString(R.string.button_name)
 
-    private val valueAnimator = ValueAnimator()
+    private var valueAnimator = ValueAnimator()
+    private var progress = 0f
+
+    private val loadingButtonAnimation = AnimationUtils(this)
 
     private val paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         style = Paint.Style.FILL
         textAlign = Paint.Align.CENTER
         textSize = 55.0f
         typeface = Typeface.create("", Typeface.BOLD)
-        color = resources.getColor(R.color.colorPrimary, null)
+        //color = resources.getColor(R.color.colorPrimary, null)
     }
 
     private var buttonState: ButtonState by Delegates.observable<ButtonState>(ButtonState.Completed) { p, old, new ->
-
+        when (new) {
+            ButtonState.Clicked ->{
+                Log.d("ggg", "button clicked")
+                buttonText = resources.getString(R.string.button_loading)
+                //invalidate()
+                loadingButtonAnimation.loadButtonAnimator()
+            }
+            ButtonState.Loading ->{
+                Log.d("ggg", "downloading...")
+                //invalidate()
+            }
+            ButtonState.Completed ->{
+                Log.d("ggg", "download completed")
+            }
+        }
     }
 
 
     init {
 
     }
-
+    @JvmName("setButtonState1")
+    fun setButtonState(btnState: ButtonState) {
+        buttonState = btnState
+    }
 
     override fun onDraw(canvas: Canvas) {
+        Log.d("ggg", "onDraw")
         super.onDraw(canvas)
+        paint.color = resources.getColor(R.color.colorPrimary, null)
         canvas.drawRect(0f,0f, widthSize.toFloat(), heightSize.toFloat(), paint)
-        paint.color = Color.BLACK
+        paint.color = Color.WHITE
         paint.textSize = 66.0f
-        canvas.drawText(resources.getString(R.string.button_name),
-            (widthSize/2).toFloat(), (heightSize/2 - (paint.descent() + paint.ascent()) /2 ), paint)
+        canvas.drawText(buttonText, (widthSize/2).toFloat(), (heightSize/2 - (paint.descent() + paint.ascent()) /2 ), paint)
+
+        if(buttonState == ButtonState.Clicked){
+            //animateLoadingButton()
+            paint.color = resources.getColor(R.color.colorPrimaryDark, null)
+            canvas.drawRect(0f, 0f, loadingButtonAnimation.progress, heightSize.toFloat(), paint)
+            paint.color = Color.WHITE
+            paint.textSize = 66.0f
+            canvas.drawText(buttonText, (widthSize/2).toFloat(), (heightSize/2 - (paint.descent() + paint.ascent()) /2 ), paint)
+        }
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {

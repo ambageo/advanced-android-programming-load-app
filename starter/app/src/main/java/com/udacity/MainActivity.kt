@@ -10,8 +10,6 @@ import android.content.IntentFilter
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
-import android.view.View
-import android.widget.RadioButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import kotlinx.android.synthetic.main.activity_main.*
@@ -26,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var notificationManager: NotificationManager
     private lateinit var pendingIntent: PendingIntent
     private lateinit var action: NotificationCompat.Action
+    private lateinit var loadingButton: LoadingButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,8 +33,11 @@ class MainActivity : AppCompatActivity() {
 
         registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
 
-        custom_button.setOnClickListener {
+        loadingButton= findViewById(R.id.custom_button)
+
+        loadingButton.setOnClickListener {
             download()
+            loadingButton.setButtonState(ButtonState.Clicked)
         }
     }
 
@@ -47,6 +49,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun download() {
         getUrl()
+        //loadingButton.setButtonState(ButtonState.Loading)
         Log.d("ggg", "download: $URL")
         val request =
             DownloadManager.Request(Uri.parse(URL))
