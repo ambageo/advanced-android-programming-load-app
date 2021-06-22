@@ -10,6 +10,7 @@ import android.content.IntentFilter
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import kotlinx.android.synthetic.main.activity_main.*
@@ -36,8 +37,17 @@ class MainActivity : AppCompatActivity() {
         loadingButton= findViewById(R.id.custom_button)
 
         loadingButton.setOnClickListener {
-            download()
-            loadingButton.setButtonState(ButtonState.Clicked)
+            if (radio_group.checkedRadioButtonId != -1) {
+                download()
+                loadingButton.setButtonState(ButtonState.Clicked)
+            } else {
+                Toast.makeText(
+                    this,
+                    resources.getString(R.string.select_project),
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
         }
     }
 
