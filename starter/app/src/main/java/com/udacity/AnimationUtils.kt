@@ -8,7 +8,9 @@ import android.view.View
 
 class AnimationUtils(private val loadingButton: LoadingButton) {
     private var buttonValueAnimator = ValueAnimator()
+    private var circleValueAnimator = ValueAnimator()
     var progress = 0F
+    var angle = 0f
 
     fun loadButtonAnimator() {
         val width = loadingButton.measuredWidth
@@ -20,6 +22,20 @@ class AnimationUtils(private val loadingButton: LoadingButton) {
                 loadingButton.invalidate()
             }
             //buttonValueAnimator.disableDuringAnimation(loadingButton)
+            start()
+        }
+    }
+
+    fun loadCircleAnimator() {
+        circleValueAnimator = ValueAnimator.ofFloat(0F, 360F).apply {
+            duration = 1800
+            repeatCount = 0
+            addUpdateListener { valueAnimator ->
+                angle = valueAnimator.animatedValue as Float
+                loadingButton.invalidate()
+            }
+            // disable during animation
+            //circleValueAnimator.disableDuringAnimation(loadingButton)
             start()
         }
     }

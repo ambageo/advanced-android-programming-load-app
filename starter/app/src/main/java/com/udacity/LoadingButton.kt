@@ -38,8 +38,8 @@ class LoadingButton @JvmOverloads constructor(
             ButtonState.Clicked ->{
                 Log.d("ggg", "button clicked")
                 buttonText = resources.getString(R.string.button_loading)
-                //invalidate()
                 loadingButtonAnimation.loadButtonAnimator()
+                loadingButtonAnimation.loadCircleAnimator()
             }
             ButtonState.Loading ->{
                 Log.d("ggg", "downloading...")
@@ -70,12 +70,25 @@ class LoadingButton @JvmOverloads constructor(
         canvas.drawText(buttonText, (widthSize/2).toFloat(), (heightSize/2 - (paint.descent() + paint.ascent()) /2 ), paint)
 
         if(buttonState == ButtonState.Clicked){
-            //animateLoadingButton()
+            // Draw the button rectangle
             paint.color = resources.getColor(R.color.colorPrimaryDark, null)
             canvas.drawRect(0f, 0f, loadingButtonAnimation.progress, heightSize.toFloat(), paint)
             paint.color = Color.WHITE
             paint.textSize = 66.0f
             canvas.drawText(buttonText, (widthSize/2).toFloat(), (heightSize/2 - (paint.descent() + paint.ascent()) /2 ), paint)
+
+            // Draw the download circle
+            paint.color = Color.YELLOW
+            canvas.drawArc(
+                widthSize.toFloat() - 150f,
+                heightSize.toFloat() / 2 - 50f,
+                widthSize.toFloat() - 50f,
+                heightSize.toFloat() / 2 + 50f,
+                0.0f,
+                loadingButtonAnimation.angle,
+                true,
+                paint
+            )
         }
     }
 
