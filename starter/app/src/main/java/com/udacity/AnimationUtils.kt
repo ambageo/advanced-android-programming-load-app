@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.ValueAnimator
 import android.util.Log
 import android.view.View
+import androidx.core.animation.doOnEnd
 
 class AnimationUtils(private val loadingButton: LoadingButton) {
     private var buttonValueAnimator = ValueAnimator()
@@ -21,7 +22,6 @@ class AnimationUtils(private val loadingButton: LoadingButton) {
                 progress = valueAnimator.animatedValue as Float
                 loadingButton.invalidate()
             }
-            //buttonValueAnimator.disableDuringAnimation(loadingButton)
             start()
         }
     }
@@ -40,14 +40,12 @@ class AnimationUtils(private val loadingButton: LoadingButton) {
         }
     }
 
-    private fun ValueAnimator.disableDuringAnimation(view: View) {
+    private fun ValueAnimator.changeButtonState(view: View) {
         addListener(object : AnimatorListenerAdapter() {
-            override fun onAnimationStart(animation: Animator?) {
-                view.isEnabled = false
-            }
 
             override fun onAnimationEnd(animation: Animator?) {
-                view.isEnabled = true
+               loadingButton.setButtonState(ButtonState.Completed)
+                Log.d("ggg", "animation completed")
             }
         })
     }

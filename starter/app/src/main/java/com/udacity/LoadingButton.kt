@@ -43,7 +43,6 @@ class LoadingButton @JvmOverloads constructor(
             }
             ButtonState.Loading ->{
                 Log.d("ggg", "downloading...")
-                //invalidate()
             }
             ButtonState.Completed ->{
                 Log.d("ggg", "download completed")
@@ -61,7 +60,7 @@ class LoadingButton @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas) {
-        Log.d("ggg", "onDraw")
+        //Log.d("ggg", "onDraw")
         super.onDraw(canvas)
         paint.color = resources.getColor(R.color.colorPrimary, null)
         canvas.drawRect(0f,0f, widthSize.toFloat(), heightSize.toFloat(), paint)

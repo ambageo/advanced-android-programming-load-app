@@ -51,16 +51,10 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private val receiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
-        }
-    }
+
 
     private fun download() {
         getUrl()
-        //loadingButton.setButtonState(ButtonState.Loading)
-        Log.d("ggg", "download: $URL")
         val request =
             DownloadManager.Request(Uri.parse(URL))
                 .setTitle(getString(R.string.app_name))
@@ -72,6 +66,41 @@ class MainActivity : AppCompatActivity() {
         val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
         downloadID =
             downloadManager.enqueue(request)// enqueue puts the download request in the queue.
+    }
+
+    private val receiver = object : BroadcastReceiver() {
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
+
+            val action = intent?.action
+
+            if (id == downloadID) {
+                if (action.equals(DownloadManager.ACTION_DOWNLOAD_COMPLETE)) {
+                    /**
+                     * get the download status & pass it to the notification
+                     * (so that it could then send it to the detail activity)
+                     */
+                    val query = DownloadManager.Query()
+                    query.setFilterById(id)
+                    val manager = context!!.getSystemService(Context.DOWNLOAD_SERVICE) as DownloadManager
+                    val cursor = manager.query(query)
+
+                    if (cursor.moveToFirst()) {
+                        if (cursor.count > 0) {
+                            val status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))
+                            if (status == DownloadManager.STATUS_SUCCESSFUL) {
+                                Log.d("ggg", "success")
+                                /* notificationManager.sendNotification(repoSelected,context,"Download successful")*/
+                            } else {
+                                Log.d("ggg", "fail")
+                                /* notificationManager.sendNotification(repoSelected,context,"Download failed")*/
+                            }
+                            loadingButton.setButtonState(ButtonState.Completed)
+                        }
+                    }
+                }
+            }
+        }
 
     }
 
