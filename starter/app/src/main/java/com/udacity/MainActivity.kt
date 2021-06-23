@@ -1,18 +1,22 @@
 package com.udacity
 
 import android.app.DownloadManager
+import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.graphics.Color
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
+import androidx.core.content.ContextCompat
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
 
@@ -26,6 +30,13 @@ class MainActivity : AppCompatActivity() {
     private lateinit var pendingIntent: PendingIntent
     private lateinit var action: NotificationCompat.Action
     private lateinit var loadingButton: LoadingButton
+
+    companion object {
+        private const val LOAD_UP_URL = "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/master.zip"
+        private const val GLIDE_URL = "https://github.com/bumptech/glide/archive/master.zip"
+        private const val RETROFIT_URL = "https://github.com/square/retrofit/master.zip"
+        private const val CHANNEL_ID = "channelId"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,6 +60,8 @@ class MainActivity : AppCompatActivity() {
             }
 
         }
+        notificationManager = getSystemService(NotificationManager::class.java)
+        createChannel(CHANNEL_ID, getString(R.string.notification_channel_name))
     }
 
 
@@ -90,10 +103,10 @@ class MainActivity : AppCompatActivity() {
                             val status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))
                             if (status == DownloadManager.STATUS_SUCCESSFUL) {
                                 Log.d("ggg", "success")
-                                /* notificationManager.sendNotification(repoSelected,context,"Download successful")*/
+                                 notificationManager.sendNotification("Download finished",context)
                             } else {
                                 Log.d("ggg", "fail")
-                                /* notificationManager.sendNotification(repoSelected,context,"Download failed")*/
+                                 notificationManager.sendNotification("Download failed",context)
                             }
                             loadingButton.setButtonState(ButtonState.Completed)
                         }
@@ -112,11 +125,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    companion object {
-        private const val LOAD_UP_URL = "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/master.zip"
-        private const val GLIDE_URL = "https://github.com/bumptech/glide/archive/master.zip"
-            private const val RETROFIT_URL = "https://github.com/square/retrofit/master.zip"
-        private const val CHANNEL_ID = "channelId"
+    private fun createChannel(channelId: String, channelName: String){
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
+            val notificationChannel = NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH)
+            notificationChannel.enableVibration(true)
+            notificationChannel.lightColor = Color.RED
+            notificationChannel.description = "Project download finished"
+
+            notificationManager.createNotificationChannel(notificationChannel)
+        }
     }
 
 }

@@ -46,6 +46,8 @@ class LoadingButton @JvmOverloads constructor(
             }
             ButtonState.Completed ->{
                 Log.d("ggg", "download completed")
+                buttonText = resources.getString(R.string.button_complete)
+                invalidate()
             }
         }
     }
@@ -62,19 +64,21 @@ class LoadingButton @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas) {
         //Log.d("ggg", "onDraw")
         super.onDraw(canvas)
-        paint.color = resources.getColor(R.color.colorPrimary, null)
-        canvas.drawRect(0f,0f, widthSize.toFloat(), heightSize.toFloat(), paint)
-        paint.color = Color.WHITE
-        paint.textSize = 66.0f
-        canvas.drawText(buttonText, (widthSize/2).toFloat(), (heightSize/2 - (paint.descent() + paint.ascent()) /2 ), paint)
 
-        if(buttonState == ButtonState.Clicked){
+        drawDefaultButton(canvas)
+
+        if (buttonState == ButtonState.Clicked) {
             // Draw the button rectangle
             paint.color = resources.getColor(R.color.colorPrimaryDark, null)
             canvas.drawRect(0f, 0f, loadingButtonAnimation.progress, heightSize.toFloat(), paint)
             paint.color = Color.WHITE
             paint.textSize = 66.0f
-            canvas.drawText(buttonText, (widthSize/2).toFloat(), (heightSize/2 - (paint.descent() + paint.ascent()) /2 ), paint)
+            canvas.drawText(
+                buttonText,
+                (widthSize / 2).toFloat(),
+                (heightSize / 2 - (paint.descent() + paint.ascent()) / 2),
+                paint
+            )
 
             // Draw the download circle
             paint.color = Color.YELLOW
@@ -88,9 +92,19 @@ class LoadingButton @JvmOverloads constructor(
                 true,
                 paint
             )
+        } else if (buttonState == ButtonState.Completed) {
+            drawDefaultButton(canvas)
         }
+
     }
 
+    fun drawDefaultButton(canvas: Canvas){
+        paint.color = resources.getColor(R.color.colorPrimary, null)
+        canvas.drawRect(0f,0f, widthSize.toFloat(), heightSize.toFloat(), paint)
+        paint.color = Color.WHITE
+        paint.textSize = 66.0f
+        canvas.drawText(buttonText, (widthSize/2).toFloat(), (heightSize/2 - (paint.descent() + paint.ascent()) /2 ), paint)
+    }
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val minw: Int = paddingLeft + paddingRight + suggestedMinimumWidth
         val w: Int = resolveSizeAndState(minw, widthMeasureSpec, 1)
