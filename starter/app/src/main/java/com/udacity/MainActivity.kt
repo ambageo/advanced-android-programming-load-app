@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
         private const val LOAD_UP_URL = "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/master.zip"
         private const val GLIDE_URL = "https://github.com/bumptech/glide/archive/master.zip"
         private const val RETROFIT_URL = "https://github.com/square/retrofit/master.zip"
-        private const val CHANNEL_ID = "channelId"
+        private const val CHANNEL_ID = 0
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -61,7 +61,8 @@ class MainActivity : AppCompatActivity() {
 
         }
         notificationManager = getSystemService(NotificationManager::class.java)
-        createChannel(CHANNEL_ID, getString(R.string.notification_channel_name))
+        // Make sure to use the same notification channel that was used in the builder (NotificationUtils.kt)
+        createChannel(getString(R.string.notification_channel_id), getString(R.string.notification_channel_name))
     }
 
 
