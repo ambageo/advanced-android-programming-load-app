@@ -9,9 +9,11 @@ import androidx.core.app.NotificationCompat
 
 private const val NOTIFICATION_ID = 0
 
-fun NotificationManager.sendNotification(message:String, context: Context) {
+fun NotificationManager.sendNotification(message:String, fileName: String, context: Context) {
 
     val intent = Intent(context, DetailActivity::class.java)
+    intent.putExtra("status", message)
+    intent.putExtra("filename", fileName)
 
     val pendingIntent = PendingIntent.getActivity(context, NOTIFICATION_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
@@ -27,7 +29,7 @@ fun NotificationManager.sendNotification(message:String, context: Context) {
         .setContentText(message)
         .setContentIntent(pendingIntent)
         .setAutoCancel(true)
-        .addAction(0, "Open to see details", pendingIntent)
+        .addAction(0, context.getString(R.string.see_details), pendingIntent)
         .setStyle(bigPicStyle)
         .setLargeIcon(cloudImage)
         .priority = NotificationCompat.PRIORITY_HIGH

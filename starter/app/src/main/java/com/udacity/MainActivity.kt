@@ -13,6 +13,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
@@ -30,6 +31,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var pendingIntent: PendingIntent
     private lateinit var action: NotificationCompat.Action
     private lateinit var loadingButton: LoadingButton
+    private lateinit var repoFileName: String
 
     companion object {
         private const val LOAD_UP_URL = "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/master.zip"
@@ -46,6 +48,12 @@ class MainActivity : AppCompatActivity() {
         registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
 
         loadingButton= findViewById(R.id.custom_button)
+
+        radio_group.setOnCheckedChangeListener { _, checkedId ->
+            if (checkedId != -1) {
+                repoFileName = (findViewById<RadioButton>(checkedId)).text as String
+            }
+        }
 
         loadingButton.setOnClickListener {
             if (radio_group.checkedRadioButtonId != -1) {
@@ -103,11 +111,9 @@ class MainActivity : AppCompatActivity() {
                         if (cursor.count > 0) {
                             val status = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))
                             if (status == DownloadManager.STATUS_SUCCESSFUL) {
-                                Log.d("ggg", "success")
-                                 notificationManager.sendNotification("Download finished",context)
+                                 notificationManager.sendNotification(getString(R.string.download_success), repoFileName, context)
                             } else {
-                                Log.d("ggg", "fail")
-                                 notificationManager.sendNotification("Download failed",context)
+                                 notificationManager.sendNotification(getString(R.string.download_failed), repoFileName, context)
                             }
                             loadingButton.setButtonState(ButtonState.Completed)
                         }
