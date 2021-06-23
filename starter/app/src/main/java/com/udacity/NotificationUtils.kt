@@ -4,6 +4,7 @@ import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import androidx.core.app.NotificationCompat
 
 private const val NOTIFICATION_ID = 0
@@ -14,6 +15,11 @@ fun NotificationManager.sendNotification(message:String, context: Context) {
 
     val pendingIntent = PendingIntent.getActivity(context, NOTIFICATION_ID, intent, PendingIntent.FLAG_UPDATE_CURRENT)
 
+    val cloudImage = BitmapFactory.decodeResource(context.resources, R.drawable.cloud_download)
+    val bigPicStyle = NotificationCompat.BigPictureStyle()
+        .bigPicture(cloudImage)
+        .bigLargeIcon(null)
+
     // Build the notification
     val builder = NotificationCompat.Builder(context, context.getString(R.string.notification_channel_id))
     builder.setSmallIcon(R.drawable.cloud_download)
@@ -22,6 +28,8 @@ fun NotificationManager.sendNotification(message:String, context: Context) {
         .setContentIntent(pendingIntent)
         .setAutoCancel(true)
         .addAction(0, "Open to see details", pendingIntent)
+        .setStyle(bigPicStyle)
+        .setLargeIcon(cloudImage)
         .priority = NotificationCompat.PRIORITY_HIGH
 
     notify(NOTIFICATION_ID, builder.build())
