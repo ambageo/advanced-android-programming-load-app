@@ -1,5 +1,6 @@
 package com.udacity
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
@@ -24,6 +25,9 @@ class DetailActivity : AppCompatActivity() {
 
         filename_text.text = fileName
         status_text.text = status
+
+        if(status.equals("success", true))
+            status_text.setTextColor(Color.GREEN) else status_text.setTextColor(Color.RED)
     }
 
 }

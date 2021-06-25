@@ -13,25 +13,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent"
+            android:alpha="0.0"/>
         <Constraint
             android:id="@id/status_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:alpha="0.0"/>
         <Constraint
             android:id="@id/filename_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            android:alpha="0.0"/>
         <Constraint
             android:id="@+id/status_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            android:alpha="0.0"/>
         <Constraint
             android:id="@+id/animation_instructions"
             android:layout_width="wrap_content"
@@ -65,6 +69,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
+            android:alpha="1.0"
             app:layout_constraintEnd_toStartOf="@id/guideline_vertical"
             app:layout_constraintTop_toBottomOf="@id/guideline_horizontal_1"/>
         <Constraint
@@ -72,18 +77,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
+            android:alpha="1.0"
             app:layout_constraintEnd_toStartOf="@id/guideline_vertical"
             app:layout_constraintTop_toBottomOf="@id/guideline_horizontal_2"/>
         <Constraint
             android:id="@id/filename_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:alpha="1.0"
             app:layout_constraintStart_toEndOf="@id/guideline_vertical"
             app:layout_constraintTop_toBottomOf="@id/guideline_horizontal_1" />
         <Constraint
             android:id="@+id/status_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:alpha="1.0"
             app:layout_constraintTop_toBottomOf="@id/guideline_horizontal_2"
             app:layout_constraintStart_toEndOf="@id/guideline_vertical" />
         <Constraint

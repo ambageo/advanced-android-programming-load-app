@@ -8,7 +8,6 @@
     android:visibility="visible"
     app:layoutDescription="@xml/content_detail_scene"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    app:motionDebug="SHOW_PATH"
     tools:context=".DetailActivity"
     tools:showIn="@layout/activity_detail">
 
@@ -47,7 +46,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="32dp"
-        android:text="Swipe right to see the details"
+        android:text="@string/swipe_instructions"
         android:textSize="18sp" />
 
     <androidx.constraintlayout.widget.Guideline

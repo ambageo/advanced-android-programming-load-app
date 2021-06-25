@@ -24,4 +24,5 @@
     <string name="see_details">Open to see details</string>
     <string name="filename_label">File Name:</string>
     <string name="status_label">Status:</string>
+    <string name="swipe_instructions">Swipe right to see the details</string>
 </resources>
