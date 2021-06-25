@@ -5,7 +5,8 @@
     <Transition
         app:constraintSetEnd="@id/end"
         app:constraintSetStart="@+id/start"
-        app:duration="2000"/>
+        app:duration="1500"
+        app:autoTransition="animateToEnd"/>
 
     <ConstraintSet android:id="@+id/start">
         <Constraint
@@ -120,7 +121,4 @@
             app:layout_constraintGuide_percent="0.4"
             android:orientation="vertical"/>
     </ConstraintSet>
-
-    <OnSwipe
-        app:dragDirection = "dragRight"/>
 </MotionScene>

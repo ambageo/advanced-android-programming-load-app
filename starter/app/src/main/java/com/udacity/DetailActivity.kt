@@ -1,5 +1,6 @@
 package com.udacity
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
@@ -28,6 +29,10 @@ class DetailActivity : AppCompatActivity() {
 
         if(status.equals("success", true))
             status_text.setTextColor(Color.GREEN) else status_text.setTextColor(Color.RED)
-    }
 
+        back_button.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
+    }
 }

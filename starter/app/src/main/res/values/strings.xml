@@ -25,4 +25,5 @@
     <string name="filename_label">File Name:</string>
     <string name="status_label">Status:</string>
     <string name="swipe_instructions">Swipe right to see the details</string>
+    <string name="back_button_text">Back to main screen</string>
 </resources>

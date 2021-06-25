@@ -41,13 +41,7 @@
         android:textSize="24sp"
         android:textStyle="bold"
         tools:text="Success" />
-    <TextView
-        android:id="@+id/animation_instructions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="32dp"
-        android:text="@string/swipe_instructions"
-        android:textSize="18sp" />
+
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_horizontal_1"
@@ -67,4 +61,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"/>
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/back_button_text"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/colorPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.motion.widget.MotionLayout>
