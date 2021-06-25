@@ -64,12 +64,14 @@
             android:id="@id/filename_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toStartOf="@id/guideline_vertical"
             app:layout_constraintTop_toBottomOf="@id/guideline_horizontal_1"/>
         <Constraint
             android:id="@id/status_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
             app:layout_constraintEnd_toStartOf="@id/guideline_vertical"
             app:layout_constraintTop_toBottomOf="@id/guideline_horizontal_2"/>
         <Constraint
@@ -101,7 +103,7 @@
             android:id="@+id/guideline_horizontal_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintGuide_percent="0.5"
+            app:layout_constraintGuide_percent="0.6"
             android:orientation="horizontal"/>
         <Constraint
             android:id="@+id/guideline_vertical"
