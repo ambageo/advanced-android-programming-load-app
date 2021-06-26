@@ -36,3 +36,7 @@ fun NotificationManager.sendNotification(message:String, fileName: String, conte
 
     notify(NOTIFICATION_ID, builder.build())
 }
+
+fun NotificationManager.cancelNotification(){
+    cancelAll()
+}

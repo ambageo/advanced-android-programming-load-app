@@ -29,7 +29,7 @@ class AnimationUtils(private val loadingButton: LoadingButton) {
     fun loadCircleAnimator() {
         circleValueAnimator = ValueAnimator.ofFloat(0F, 360F).apply {
             duration = 1800
-            repeatCount = 0
+            repeatCount = ValueAnimator.INFINITE
             addUpdateListener { valueAnimator ->
                 angle = valueAnimator.animatedValue as Float
                 loadingButton.invalidate()
